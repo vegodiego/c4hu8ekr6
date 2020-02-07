@@ -1,4 +1,4 @@
-class RemoveTokenFromUsers < ActiveRecord::Migration
+class RemoveTokenFromUsers < ActiveRecord::Migration[6.0]
   def change
     remove_column :users, :encrypted_token, :string
     remove_column :users, :encrypted_token_salt, :string
