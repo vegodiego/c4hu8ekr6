@@ -5,3 +5,4 @@ class AddTokenToUsers < ActiveRecord::Migration[6.0]
     add_column :users, :encrypted_token_iv, :string
   end
 end
+
