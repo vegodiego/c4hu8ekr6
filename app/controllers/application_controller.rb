@@ -4,17 +4,19 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def basic_auth
-    authenticate_or_request_with_http_basic do |username, token|
-      user = User.find_by_email(username)
+    username=request.headers["HTTP_USERNAME"]
+    token=request.headers["HTTP_TOKEN"]
 
-      if user
-        if user.api_token == token
-          sign_in user
-        else
-          render json: {}, status: 401
-        end 
-      end
-
+    user = User.find_by_email(username)
+    
+    if user
+      if user.api_token == token
+        sign_in user
+      else
+        render json: {}, status: 401
+      end 
+    else
+      render json: {}, status: 401
     end
   end
 end
